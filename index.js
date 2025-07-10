@@ -11,9 +11,24 @@ app.get('/nueva-ruta', (req, res) => {
 });
 
 app.get('/products', (req, res) => {
+  res.json([
+    {
+      name: 'Product 1',
+      price: 120
+    },
+    {
+      name: 'Product 2',
+      price: 20
+    }
+  ]);
+});
+
+app.get('/products/:id', (req, res) => {
+  const { id } = req.params;
   res.json({
-    name: 'Product 1',
-    price: 120
+    id,
+    name: 'Product 2',
+    price: 20
   });
 });
 
@@ -24,6 +39,14 @@ app.get('/categories', (req, res) => {
     toys: 'Toys'
   });
 });
+
+app.get('/categories/:categoryId/products/:productId', (req, res) => {
+  const { categoryId, productId } = req.params;
+  res.json({
+    categoryId,
+    productId
+  })
+})
 
 app.get('/home', (req, res) => {
   res.send('Home Page');
