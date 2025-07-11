@@ -16,4 +16,23 @@ router.get('/', (req, res) => {
 //   })
 // })
 
+router.post('/', (req, res) => {
+  const body = req.body;
+  const newCategorie = service.create(body);
+  res.status(201).json(newCategorie);
+})
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  const categorie = service.update(id, body);
+  res.json(categorie);
+})
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  const rta = service.delete(id);
+  res.json(rta);
+})
+
 module.exports = router
