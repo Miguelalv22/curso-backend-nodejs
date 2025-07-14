@@ -1,18 +1,28 @@
 const express = require('express');
 const routerApi = require('./routes')
+const cors = require('cors');
 const app = express();
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandlers')
 const port = 3000;
-
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hola server');
-});
+const whiteList = [
+  'http://127.0.0.1:5500/',
+  'http://localhost:5500',
+  'https://myapp.com',
+];
 
-app.get('/nueva-ruta', (req, res) => {
-  res.send('Hola soy la nueva ruta');
-});
+const options = {
+  origin: (origin, callback) => {
+    if (whiteList.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('no permitido'))
+    }
+  }
+};
+
+app.use(cors(options));
 
 routerApi(app);
 
