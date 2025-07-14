@@ -3,7 +3,7 @@ const routerApi = require('./routes')
 const cors = require('cors');
 const app = express();
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/errorHandlers')
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 
 const whiteList = [
@@ -21,6 +21,10 @@ const options = {
     }
   }
 };
+
+app.get('/api', (req, res) => {
+  res.send('Hola server');
+});
 
 app.use(cors(options));
 
