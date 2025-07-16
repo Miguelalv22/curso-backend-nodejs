@@ -5,7 +5,7 @@ const service = new ProductsService();
 const validatorHandler = require('./../middlewares/validatorHandler');
 const { createProductSchema, updateProductSchema, getProductSchema } = require('./../schemas/productSchema');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const products = await service.find();
     res.json(products);
